@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 [CreateAssetMenu(menuName = "Castoor/CharacterSO")]
 public class CharacterSO : ScriptableObject
 {
-    public int level;
+    public IntReference level;
+    public IntReference currentXp;
 
     public Stats stats;
 
@@ -15,6 +17,21 @@ public class CharacterSO : ScriptableObject
     public Armor shoulder;
 
     public Weapon weapon;
+
+    public UnityEvent onLevelUpCallback;
+
+
+    public float AttackSpeed()
+    {
+        float attackSpeed = 1f;
+
+        if(weapon != null)
+        {
+            attackSpeed = weapon.attackSpeed;
+        }
+
+        return attackSpeed;
+    }
 
     public int MaxHealth()
     {
@@ -59,7 +76,7 @@ public class CharacterSO : ScriptableObject
         
         d = stats.strength;
         if(weapon != null)
-            d += Random.Range(weapon.damage.x, weapon.damage.y);
+            d += Random.Range(weapon.damage.x, weapon.damage.y+1);
         if(RollCrit())
         {
             d += d / 2;
@@ -71,6 +88,69 @@ public class CharacterSO : ScriptableObject
     {
         bool crit = Random.Range(0, 100) < Mathf.Clamp(stats.agility, 0, 60) ? true : false;
         return crit;
+    }
+
+    public void CheckIfLevelUp()
+    {
+        if (level == 9)
+            return;
+
+        if(currentXp >= NextLevelXP(level))
+        {
+            int tmpXp = currentXp - NextLevelXP(level);
+            level.Variable.ChangeValue(level + 1);
+            currentXp.Variable.ChangeValue(tmpXp);
+            
+            onLevelUpCallback?.Invoke();
+        }
+    }
+
+    public void GainXp(int level)
+    {
+        currentXp.Variable.ApplyChange(GetXP(level));
+        Debug.Log("GetXP(level) " + GetXP(level));
+        CheckIfLevelUp();
+    }
+
+    public int GetXP(int level )
+    {
+        int[] xpTab =
+        {
+            0,
+            2,
+            5,
+            11,
+            31,
+            78,
+            150,
+            350,
+            500,
+            700,
+            900,
+            1000
+        };
+
+        return xpTab[Mathf.Clamp(level, 0, xpTab.Length-1)];
+    }
+
+    public int NextLevelXP(int level)
+    {
+        int[] levelsMaxXp =
+        {
+            1,
+            2,
+            4,
+            6,
+            8,
+            16,
+            30,
+            60,
+            80,
+            120,
+            160,
+            250
+        };
+        return levelsMaxXp[Mathf.Clamp(level, 0, levelsMaxXp.Length - 1)];
     }
 
 }

@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: be3effd019db3114caa48f8d9f3d9aa2, type: 3}
-  m_Name: Player
+  m_Name: Ennemy
   m_EditorClassIdentifier: 
   level:
-    UseConstant: 0
-    ConstantValue: 0
-    Variable: {fileID: 11400000, guid: 0642740906626294b85af7a3204a4f61, type: 2}
+    UseConstant: 1
+    ConstantValue: 1
+    Variable: {fileID: 0}
   currentXp:
-    UseConstant: 0
+    UseConstant: 1
     ConstantValue: 0
-    Variable: {fileID: 11400000, guid: 6f302cd5325affe4b8cb2a4f5959fc9f, type: 2}
+    Variable: {fileID: 0}
   stats: {fileID: 11400000, guid: 49e59db4631657b4192aee9b05376412, type: 2}
-  head: {fileID: 11400000, guid: 73ae2b775f79ffc4abf8703d466a17d4, type: 2}
+  head: {fileID: 0}
   body: {fileID: 0}
   hand: {fileID: 0}
   shoulder: {fileID: 0}

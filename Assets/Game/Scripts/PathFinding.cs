@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEditor;
 
 public class PathFinding : MonoBehaviour
@@ -10,6 +11,8 @@ public class PathFinding : MonoBehaviour
 
     public Map map;
     public PFMap pathFindingMap;
+
+    public UnityEvent onCarteUpdatedCallback;
 
     private void Awake()
     {
@@ -21,7 +24,7 @@ public class PathFinding : MonoBehaviour
 
     public Vector2Int ConvertWorldPositionToArray(Vector3 position)
     {
-        Vector2Int convertposition = new Vector2Int(Mathf.FloorToInt(position.x / 3f), Mathf.FloorToInt(position.z / 3f));
+        Vector2Int convertposition = new Vector2Int(Mathf.FloorToInt(position.x / 3f + 0.5f), Mathf.FloorToInt(position.z / 3f+0.5f));
 
         return convertposition;
     }
@@ -30,14 +33,37 @@ public class PathFinding : MonoBehaviour
     public void Initialize()
     {
         //pathFindingMap.//map
+        // ------------------- Init First Time -----------------
+        pathFindingMap.map = new int[map.map.GetLength(0), map.map.GetLength(1)];
+        for (int y = 0; y < map.map.GetLength(1); y++)
+        {
+            for (int x = 0; x < map.map.GetLength(0); x++)
+            {
+                if (!map.map[x, y])
+                {
+                    pathFindingMap.map[x, y] = int.MaxValue;
+                }
+                else
+                {
+                    pathFindingMap.map[x, y] = 0;
+                }
+            }
+        }
+        // ------------------------------------------------------
+
+        // ------------------- Pathfinding Algo -----------------
+
+
         DikjtraAlgo();
+
+
+        //--------------------------------------------------------
         string s = "";
         foreach(var d in PathToPlayer(zombie.position))
         {
             s += d + "\n";
         }
         Debug.Log(s);
-
     }
 
 
@@ -63,11 +89,11 @@ public class PathFinding : MonoBehaviour
             new Vector2Int(1,0), // Droite
             new Vector2Int(-1,0),// Gauche
             new Vector2Int(0,1), // Haut
-            new Vector2Int(0,-1), // Bas
-            new Vector2Int(-1,-1), // Bas - Droite
-            new Vector2Int(1,-1), // Bas - Gauche
-            new Vector2Int(1, 1), // Haut - Droite
-            new Vector2Int(-1,1) // haut - Gauche
+            new Vector2Int(0,-1) // Bas
+            //new Vector2Int(-1,-1), // Bas - Droite
+            //new Vector2Int(1,-1), // Bas - Gauche
+            //new Vector2Int(1, 1), // Haut - Droite
+            //new Vector2Int(-1,1) // haut - Gauche
         };
 
         foreach (var d in DIRS)
@@ -86,9 +112,20 @@ public class PathFinding : MonoBehaviour
     }
 
 
+
     public void DikjtraAlgo()
     {
-        pathFindingMap.map = new int[map.map.GetLength(0), map.map.GetLength(1)];
+        for (int y = 0; y < map.map.GetLength(1); y++)
+        {
+            for (int x = 0; x < map.map.GetLength(0); x++)
+            {
+                if (map.map[x, y])
+                {
+                    pathFindingMap.map[x, y] = 0;
+                }
+            }
+        }
+
 
         List<Vector2Int> openSet = new List<Vector2Int>();
         HashSet<Vector2Int> closeSet = new HashSet<Vector2Int>();
@@ -120,6 +157,9 @@ public class PathFinding : MonoBehaviour
                 }
             }
         }
+
+
+        onCarteUpdatedCallback?.Invoke();
     }
 
     public Vector2Int[] PathToPlayer(Vector3 position)
@@ -162,11 +202,11 @@ public class PathFinding : MonoBehaviour
             new Vector2Int(1,0), // Droite
             new Vector2Int(-1,0),// Gauche
             new Vector2Int(0,1), // Haut
-            new Vector2Int(0,-1), // Bas
-            new Vector2Int(-1,-1), // Bas - Droite
-            new Vector2Int(1,-1), // Bas - Gauche
-            new Vector2Int(1, 1), // Haut - Droite
-            new Vector2Int(-1,1) // haut - Gauche
+            new Vector2Int(0,-1) // Bas
+            //new Vector2Int(-1,-1), // Bas - Droite
+            //new Vector2Int(1,-1), // Bas - Gauche
+            //new Vector2Int(1, 1), // Haut - Droite
+            //new Vector2Int(-1,1) // haut - Gauche
         };
         Shuffle(ref DIRS);
         //Debug.Log(DIRS);
@@ -263,7 +303,7 @@ public class PathFinding : MonoBehaviour
                         Gizmos.color = Color.black;
                     }
                 
-                    Gizmos.DrawCube(position, Vector3.one*1.5f);
+                    Gizmos.DrawCube(position, Vector3.one*0.8f);
                 }
 
                 if(labelGrid)

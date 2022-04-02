@@ -9,13 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 678632ae5bf403b4ea11fbe27e3c9b67, type: 3}
-  m_Name: PlayerStats
+  m_Script: {fileID: 11500000, guid: 7f1401ed1aa8bea40a160357456ecbad, type: 3}
+  m_Name: Ennemies
   m_EditorClassIdentifier: 
-  health: 4
-  mana: 0
-  agility: 0
-  strength: 0
-  healthRegeneration: 0
-  manaRegeneration: 0
-  attackSpeed: 0
+  items: []
+  onRemoveSetCallback:
+    m_PersistentCalls:
+      m_Calls: []
+  onEmptySetCallback:
+    m_PersistentCalls:
+      m_Calls: []
