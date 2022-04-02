@@ -9,13 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab8c194f51fbbf3469bc046e2ffb8da0, type: 3}
-  m_Name: Basic Sword
+  m_Script: {fileID: 11500000, guid: dc8552c78731fee40a5b7d45e56f20e2, type: 3}
+  m_Name: Player_HP
   m_EditorClassIdentifier: 
-  icon: {fileID: 0}
-  prefab: {fileID: 0}
-  type: 1
-  quality: 0
-  attackRange: 3
-  attackSpeed: 0.4
-  damage: {x: 8, y: 15}
+  value: 0
+  onChangeValue:
+    m_PersistentCalls:
+      m_Calls: []

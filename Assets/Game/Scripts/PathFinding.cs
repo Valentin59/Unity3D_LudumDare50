@@ -58,12 +58,12 @@ public class PathFinding : MonoBehaviour
 
 
         //--------------------------------------------------------
-        string s = "";
+        /*string s = "";
         foreach(var d in PathToPlayer(zombie.position))
         {
             s += d + "\n";
         }
-        Debug.Log(s);
+        Debug.Log(s);*/
     }
 
 
@@ -185,7 +185,11 @@ public class PathFinding : MonoBehaviour
 
                 path.Add(newDirection);
                 startPosition += newDirection;
+                if(pathFindingMap.map[startPosition.x, startPosition.y] == int.MaxValue)
+                {
+                    break;
 
+                }
                 loop++;
             }
 

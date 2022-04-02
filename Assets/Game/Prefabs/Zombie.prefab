@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 369902872810108268}
   - component: {fileID: 369902872810108269}
   - component: {fileID: 369902872810108266}
-  - component: {fileID: 369902872810108267}
   - component: {fileID: 1324352362491918872}
   - component: {fileID: 4299764452276908508}
   - component: {fileID: 2569873079227276636}
@@ -86,19 +85,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &369902872810108267
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 369902872810108264}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &1324352362491918872
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -108,12 +94,12 @@ Rigidbody:
   m_GameObject: {fileID: 369902872810108264}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
+  m_Drag: 30
+  m_AngularDrag: 5
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 80
   m_CollisionDetection: 0
 --- !u!136 &4299764452276908508
 CapsuleCollider:
@@ -141,8 +127,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74ec450e7de6c2649ab85a116a03c2f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  character: {fileID: 11400000, guid: 77e642f16a14680448b3bc194fe0d431, type: 2}
-  currentHp: 0
+  character: {fileID: 11400000, guid: 2ffa16c7a3d70b04492c76aecb1bf9f5, type: 2}
+  currentHp:
+    UseConstant: 1
+    ConstantValue: 0
+    Variable: {fileID: 0}
+  onDieCallback:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &6891216221272378145
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -155,7 +147,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7bc4f49318bcdb4eb0e542bc2a6cf51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  character: {fileID: 0}
+  character: {fileID: 11400000, guid: 2ffa16c7a3d70b04492c76aecb1bf9f5, type: 2}
   pfController: {fileID: 0}
   factionCharacters: {fileID: 11400000, guid: d06a6c301e5f98049b49768b006ed5e7, type: 2}
   hostileCharacters: {fileID: 11400000, guid: 766a51c173690c846947b02273d20551, type: 2}
@@ -168,3 +160,7 @@ MonoBehaviour:
   onMoveCompleteCallback:
     m_PersistentCalls:
       m_Calls: []
+  player: {fileID: 0}
+  targetEnnemy: {fileID: 0}
+  currentState: 0
+  findNewEnnemy: 0

@@ -43,13 +43,16 @@ public class CharacterBehaviour : MonoBehaviour
         _rigidbody.velocity = direction.normalized * speed + new Vector3(0f, _rigidbody.velocity.y, 0f);
 
         Vector3 nextPosition = new Vector3(startPosition.x, 0f, startPosition.y) * 3f + direction * 3f;
-
+        //nextPosition.y = 1f;
         //Debug.Log("distance " + Vector3.Distance(nextPosition , _rigidbody.position));
-        //Debug.Log("prochaine position : " +nextPosition);
+        //Debug.Log("prochaine position : " + nextPosition);
+        //Debug.Log("prochaine position : " + _rigidbody.position);
         //Debug.Log((nextPosition - _rigidbody.position).sqrMagnitude);
 
         if ((nextPosition - _rigidbody.position).sqrMagnitude < 1.1f)
         {
+            nextPosition.y = 1f;
+            //_rigidbody.position = nextPosition;
             startPosition += path[0];
             path.RemoveAt(0);
             onMoveCompleteCallback?.Invoke();

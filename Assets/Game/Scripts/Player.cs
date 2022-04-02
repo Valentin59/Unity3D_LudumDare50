@@ -39,12 +39,20 @@ public class Player : CharacterBehaviour
                     //StartCoroutine(Attack());
                     _timer = 0f;
                 }
+                
             }
             else
             {
-                if(null == path || path.Count == 0)
+                
+
+                if (null == path || path.Count == 0)
                 {
                     currentState = STATE.IDLE;
+                }
+                else
+                {
+                    pfController.DikjtraAlgo();
+                    FindNewTarget();
                 }
             }
         }
@@ -92,13 +100,17 @@ public class Player : CharacterBehaviour
             {
                 if (hostileCharacters.Count > 0)
                 {
+                    //pfController.DikjtraAlgo();
                     if (FindNewTarget())
                     {
-                        pfController.DikjtraAlgo();
                         GetPathToTarget();
                         if (path.Count > 0)
                         {
                             currentState = STATE.MOVE;
+                        }
+                        else
+                        {
+                            currentState = STATE.ATTACK;
                         }
                     }
                 }
@@ -107,6 +119,7 @@ public class Player : CharacterBehaviour
         //Debug.Log("New State : " + currentState);
     }
 
+    
 
 
     public void UpdateState()
@@ -134,7 +147,6 @@ public class Player : CharacterBehaviour
 
     public IEnumerator Attack()
     {
-        Debug.Log("okkkfdksofkspdf");
         while(targetEnnemy != null && health.currentHp > 0)
         {
             yield return new WaitForSeconds(character.AttackSpeed());
@@ -144,11 +156,19 @@ public class Player : CharacterBehaviour
     #endregion
 
 
+    public void UpdateTargetPath()
+    {
+        pfController.DikjtraAlgo();
+        GetPathToTarget();
+    }
 
     // Start is called before the first frame update
     public void Start()
     {
         Initialize();
+
+        onMoveCompleteCallback.AddListener(UpdateTargetPath);
+
         //pfController.onCarteUpdatedCallback.AddListener(GetANewPath);
     }
 
@@ -162,7 +182,7 @@ public class Player : CharacterBehaviour
 
     
 
-    CharacterBehaviour targetEnnemy;
+    public CharacterBehaviour targetEnnemy;
     public void GetANewPath()
     {
         targetEnnemy = hostileCharacters.GetNearest(transform.position);
@@ -182,10 +202,13 @@ public class Player : CharacterBehaviour
     public void GetPathToTarget()
     {
         //Debug.Log("Player go to => " + targetEnnemy.name);
-        Vector2Int[] newpath = pfController.PathToPlayer(targetEnnemy.transform.position);
-        InversePathForPlayer(newpath);
+        if (targetEnnemy != null)
+        {
+            Vector2Int[] newpath = pfController.PathToPlayer(targetEnnemy.transform.position);
+            InversePathForPlayer(newpath);
 
-        startPosition = pfController.ConvertWorldPositionToArray(transform.position);
+            startPosition = pfController.ConvertWorldPositionToArray(transform.position);
+        }
     }
 
     public void InversePathForPlayer(Vector2Int[] path)

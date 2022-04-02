@@ -111,6 +111,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   currentState: 0
+  findNewEnnemy: 0
+  targetEnnemy: {fileID: 0}
 --- !u!114 &347175058
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -124,7 +126,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   character: {fileID: 11400000, guid: 77e642f16a14680448b3bc194fe0d431, type: 2}
-  currentHp: 0
+  currentHp:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: 7c911557e27f1e142bfdf97c2ee7c81a, type: 2}
+  onDieCallback:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!136 &8572397776930783513
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -148,10 +156,10 @@ Rigidbody:
   m_GameObject: {fileID: 2776518926507511974}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
+  m_Drag: 30
+  m_AngularDrag: 5
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 80
   m_CollisionDetection: 0

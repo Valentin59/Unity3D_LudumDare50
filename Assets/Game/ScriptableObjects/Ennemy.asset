@@ -20,12 +20,12 @@ MonoBehaviour:
     UseConstant: 1
     ConstantValue: 0
     Variable: {fileID: 0}
-  stats: {fileID: 11400000, guid: 49e59db4631657b4192aee9b05376412, type: 2}
+  stats: {fileID: 11400000, guid: 9aa4282d8661c034e8f68d5d2e7d1086, type: 2}
   head: {fileID: 0}
   body: {fileID: 0}
   hand: {fileID: 0}
   shoulder: {fileID: 0}
-  weapon: {fileID: 11400000, guid: 9d3faa47419e0e54ab058d86ae3fd6f1, type: 2}
+  weapon: {fileID: 11400000, guid: c17aa973d0f0b9248902687db7214a77, type: 2}
   onLevelUpCallback:
     m_PersistentCalls:
       m_Calls: []
