@@ -16,17 +16,23 @@ public class CharacterBehaviour : MonoBehaviour
     public List<Vector2Int> path;
     public Vector2Int startPosition;
     public int index;
-    private Rigidbody _rigidbody;
 
     public bool idle;
     public Health health;
 
     public UnityEvent onMoveCompleteCallback;
 
+    protected Rigidbody _rigidbody;
+    protected Animator _animator;
+
+    public bool pause = false;
+
+
     public virtual void Awake()
     {
         index = 0;
         _rigidbody = gameObject.GetComponent<Rigidbody>();
+        _animator = gameObject.GetComponentInChildren<Animator>();
         health = gameObject.GetComponent<Health>();
         factionCharacters.Add(this);
     }
@@ -42,12 +48,18 @@ public class CharacterBehaviour : MonoBehaviour
 
         _rigidbody.velocity = direction.normalized * speed + new Vector3(0f, _rigidbody.velocity.y, 0f);
 
+        if(_animator != null)
+            _animator.gameObject.transform.LookAt(transform.position - direction);
+
         Vector3 nextPosition = new Vector3(startPosition.x, 0f, startPosition.y) * 3f + direction * 3f;
-        //nextPosition.y = 1f;
+        nextPosition.y = 1f;
+
+        
         //Debug.Log("distance " + Vector3.Distance(nextPosition , _rigidbody.position));
         //Debug.Log("prochaine position : " + nextPosition);
         //Debug.Log("prochaine position : " + _rigidbody.position);
-        //Debug.Log((nextPosition - _rigidbody.position).sqrMagnitude);
+        /*if(gameObject.name == "Player")
+        Debug.Log((nextPosition - _rigidbody.position).sqrMagnitude);*/
 
         if ((nextPosition - _rigidbody.position).sqrMagnitude < 1.1f)
         {

@@ -27,7 +27,7 @@ public class CharacterSO : ScriptableObject
 
         if(weapon != null)
         {
-            attackSpeed = weapon.attackSpeed;
+            attackSpeed = weapon.attackSpeed - stats.attackSpeed * weapon.attackSpeed;
         }
 
         return attackSpeed;
@@ -108,7 +108,7 @@ public class CharacterSO : ScriptableObject
     public void GainXp(int level)
     {
         currentXp.Variable.ApplyChange(GetXP(level));
-        Debug.Log("GetXP(level) " + GetXP(level));
+        //Debug.Log("GetXP(level) " + GetXP(level));
         CheckIfLevelUp();
     }
 
@@ -116,7 +116,7 @@ public class CharacterSO : ScriptableObject
     {
         int[] xpTab =
         {
-            0,
+            1,
             2,
             5,
             11,

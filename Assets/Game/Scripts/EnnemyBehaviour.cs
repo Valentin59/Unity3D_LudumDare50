@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnnemyBehaviour : CharacterBehaviour
 {
-    public Player player;
+    public CharacterBehaviour player;
     public CharacterBehaviour targetEnnemy;
 
     void Start()
@@ -16,7 +16,7 @@ public class EnnemyBehaviour : CharacterBehaviour
 
     public void AddXp()
     {
-        Debug.Log("Add XP ! ");
+        //Debug.Log("Add XP ! ");
         if (player != null)
             player.character.GainXp(character.level.Value);
         //health.onDieCallback.RemoveListener(AddXp);
@@ -57,6 +57,17 @@ public class EnnemyBehaviour : CharacterBehaviour
                     currentState = STATE.ATTACK;
                     //StartCoroutine(Attack());
                     _timer = 0f;
+
+                    if (targetEnnemy != null)
+                    {
+                        Vector3 targetposition = targetEnnemy.transform.position;
+                        targetposition.y = 0f;
+                        Vector3 myposition = transform.position;
+                        myposition.y = 0f;
+
+                        _animator.gameObject.transform.LookAt(transform.position - (targetposition - myposition));
+                    }
+
                 }
             }
             else
@@ -221,6 +232,8 @@ public class EnnemyBehaviour : CharacterBehaviour
 
     public override void FixedUpdate()
     {
+        if (pause)
+            return;
         UpdateState();
     }
 

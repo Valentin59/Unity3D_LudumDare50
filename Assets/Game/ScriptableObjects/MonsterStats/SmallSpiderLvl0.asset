@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be3effd019db3114caa48f8d9f3d9aa2, type: 3}
+  m_Name: SmallSpiderLvl0
+  m_EditorClassIdentifier: 
+  level:
+    UseConstant: 1
+    ConstantValue: 0
+    Variable: {fileID: 0}
+  currentXp:
+    UseConstant: 1
+    ConstantValue: 0
+    Variable: {fileID: 0}
+  stats: {fileID: 11400000, guid: a84fc2e6ef928a44a8ef4e931a29d02a, type: 2}
+  head: {fileID: 0}
+  body: {fileID: 0}
+  hand: {fileID: 0}
+  shoulder: {fileID: 0}
+  weapon: {fileID: 11400000, guid: 9cf37a0755549b64fa1595e3a3100129, type: 2}
+  onLevelUpCallback:
+    m_PersistentCalls:
+      m_Calls: []

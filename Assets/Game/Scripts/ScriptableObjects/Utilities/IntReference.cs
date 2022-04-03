@@ -20,6 +20,7 @@ public class IntReference : IComparable<IntReference>
     public int Value
     {
         get { return UseConstant ? ConstantValue : Variable.value; }
+        set { if (UseConstant) ConstantValue = value; else Variable.value = value; }
     }
 
     public int CompareTo(IntReference other)

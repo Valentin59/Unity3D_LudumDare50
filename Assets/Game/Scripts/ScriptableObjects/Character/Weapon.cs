@@ -6,6 +6,10 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Castoor/Stuff/Weapon")]
 public class Weapon : ScriptableObject
 {
+    public string title;
+    [Multiline]
+    public string description;
+
     public Sprite icon;
     public GameObject prefab;
 

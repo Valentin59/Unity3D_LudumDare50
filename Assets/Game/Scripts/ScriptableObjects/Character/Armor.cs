@@ -6,6 +6,10 @@ using UnityEngine.Events;
 [CreateAssetMenu(menuName = "Castoor/Stuff/Armor")]
 public class Armor : ScriptableObject
 {
+    public string title;
+    public string description;
+
+
     public Sprite icon;
     public GameObject prefab;
 

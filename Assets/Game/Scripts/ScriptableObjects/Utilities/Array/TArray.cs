@@ -13,6 +13,7 @@ public class TArray<T> : ScriptableObject
 
     public void Add(T item)
     {
+        //Debug.Log("" + item);
         if(!items.Contains(item))
             items.Add(item);
     }

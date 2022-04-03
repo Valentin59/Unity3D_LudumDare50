@@ -12,6 +12,7 @@ public class Health : MonoBehaviour
     //public int currentHp;
 
     public UnityEvent onDieCallback;
+    public UnityEvent<int, Vector3> onDamageTaken;
 
     void Awake()
     {
@@ -35,8 +36,10 @@ public class Health : MonoBehaviour
             currentHp.ConstantValue -= damageDeal;
         else
             currentHp.Variable.ApplyChange(- damageDeal);
+        
+        onDamageTaken?.Invoke(damageDeal, this.transform.position);
 
-        Debug.Log(gameObject.name + " a subit " + damageDeal);
+        //Debug.Log(gameObject.name + " a subit " + damageDeal);
 
         if(currentHp <= 0)
         {

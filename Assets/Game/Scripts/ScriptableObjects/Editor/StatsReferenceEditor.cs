@@ -10,13 +10,13 @@ public class StatsReferenceEditor : Editor
     {
         Armor ts = (Armor)target;
         DrawDefaultInspector();
-        ts.stats.Stats().health = EditorGUILayout.IntField("health", ts.stats.Stats().health);
-        ts.stats.Stats().mana = EditorGUILayout.IntField("mana", ts.stats.Stats().mana);
-        ts.stats.Stats().agility = EditorGUILayout.IntField("agility", ts.stats.Stats().agility);
-        ts.stats.Stats().strength = EditorGUILayout.IntField("strength", ts.stats.Stats().strength);
-        ts.stats.Stats().healthRegeneration = EditorGUILayout.IntField("healthRegeneration", ts.stats.Stats().healthRegeneration);
-        ts.stats.Stats().manaRegeneration = EditorGUILayout.IntField("manaRegeneration", ts.stats.Stats().manaRegeneration);
-        ts.stats.Stats().attackSpeed = EditorGUILayout.IntField("attackSpeed", ts.stats.Stats().attackSpeed);
+        ts.stats.Stats().health.Value = EditorGUILayout.IntField("health", ts.stats.Stats().health.Value);
+        ts.stats.Stats().mana.Value = EditorGUILayout.IntField("mana", ts.stats.Stats().mana.Value);
+        ts.stats.Stats().agility.Value = EditorGUILayout.IntField("agility", ts.stats.Stats().agility.Value);
+        ts.stats.Stats().strength.Value = EditorGUILayout.IntField("strength", ts.stats.Stats().strength.Value);
+        ts.stats.Stats().healthRegeneration.Value = EditorGUILayout.IntField("healthRegeneration", ts.stats.Stats().healthRegeneration);
+        ts.stats.Stats().manaRegeneration.Value = EditorGUILayout.IntField("manaRegeneration", ts.stats.Stats().manaRegeneration.Value);
+        ts.stats.Stats().attackSpeed.Value = EditorGUILayout.IntField("attackSpeed", ts.stats.Stats().attackSpeed.Value);
 
         // Show default inspector property editor
     }

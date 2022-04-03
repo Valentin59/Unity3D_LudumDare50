@@ -32,14 +32,22 @@ public class Player : CharacterBehaviour
             if (targetEnnemy != null)
             {
                 float distance = (targetEnnemy.transform.position - this.transform.position).sqrMagnitude;
-                //Debug.Log(distance + " / " + character.weapon.attackRange);
+                //Debug.Log(distance + " / " + (character.weapon.attackRange * character.weapon.attackRange) + 0.3f);
                 if (distance <= (character.weapon.attackRange * character.weapon.attackRange) + 0.3f)
                 {
                     currentState = STATE.ATTACK;
                     //StartCoroutine(Attack());
                     _timer = 0f;
                 }
-                
+                else
+                {
+
+                    if (FindNewTarget())
+                    {
+                        GetPathToTarget();
+                    }
+                }
+
             }
             else
             {
@@ -51,8 +59,11 @@ public class Player : CharacterBehaviour
                 }
                 else
                 {
-                    pfController.DikjtraAlgo();
-                    FindNewTarget();
+                    
+                    if (FindNewTarget())
+                    {
+                        //GetPathToTarget();
+                    }
                 }
             }
         }
@@ -66,7 +77,7 @@ public class Player : CharacterBehaviour
                 {
                     if (FindNewTarget())
                     {
-                        GetPathToTarget();
+                        //GetPathToTarget();
                     }
                 }
                 else
@@ -96,7 +107,7 @@ public class Player : CharacterBehaviour
         }
         else if(currentState == STATE.IDLE)
         {
-            if(path != null)
+            if (path != null)
             {
                 if (hostileCharacters.Count > 0)
                 {
@@ -127,19 +138,43 @@ public class Player : CharacterBehaviour
         switch(currentState)
         {
             case STATE.IDLE:
+                if(_animator != null)
+                { 
+                    _animator.SetFloat("speed", 0f);
+                    _animator.SetBool("attackNormal", false);
+                }
 
                 break;
             case STATE.MOVE:
+                if (_animator != null)
+                {
+                    _animator.SetFloat("speed", 1f);
+                    _animator.SetBool("attackNormal", false);
+                }
 
                 this.Movement();
 
                 break;
             case STATE.ATTACK:
+                if (_animator != null)
+                {
+                    _animator.SetFloat("speed", 0f);
+                    _animator.SetBool("attackNormal", true);
+                    if(targetEnnemy != null)
+                    _animator.gameObject.transform.LookAt(transform.position + (transform.position -targetEnnemy.transform.position).normalized);
+                }
+                //if (_animator != null)
 
                 //nothing
 
                 break;
             case STATE.DEAD:
+                if (_animator != null)
+                {
+                    _animator.SetFloat("speed", 0f);
+                    _animator.SetBool("attackNormal", false);
+                }
+
                 break;
         }
         ChangeState();
@@ -149,6 +184,9 @@ public class Player : CharacterBehaviour
     {
         while(targetEnnemy != null && health.currentHp > 0)
         {
+            
+
+
             yield return new WaitForSeconds(character.AttackSpeed());
             targetEnnemy.health.Damage(character.Damage());
         }

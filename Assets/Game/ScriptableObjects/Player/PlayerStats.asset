@@ -12,10 +12,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 678632ae5bf403b4ea11fbe27e3c9b67, type: 3}
   m_Name: PlayerStats
   m_EditorClassIdentifier: 
-  health: 60
-  mana: 0
-  agility: 0
-  strength: 0
-  healthRegeneration: 0
-  manaRegeneration: 0
-  attackSpeed: 0
+  health:
+    UseConstant: 0
+    ConstantValue: 60
+    Variable: {fileID: 11400000, guid: 9541e9deef255e84f908e07c84222625, type: 2}
+  mana:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: 8d6f94af00d87ad44a4da94ec9c895c1, type: 2}
+  agility:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: af3a2c147d4b12443a4d3cfa8fc4cbc9, type: 2}
+  strength:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: 96782ef61e6b4c14aafbae13e1731a52, type: 2}
+  healthRegeneration:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: 7efeab644caedae4eaa02227e9ac470c, type: 2}
+  manaRegeneration:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: 67414369886b5ac44999fddb2407869b, type: 2}
+  attackSpeed:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: ece78649b934c3545ac2cbdefaacb699, type: 2}

@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab8c194f51fbbf3469bc046e2ffb8da0, type: 3}
+  m_Name: DardLvl0
+  m_EditorClassIdentifier: 
+  title: Dard
+  description: 'Small Spider Dard
+
+    AttackRange [ 2 ]
+
+    AttackSpeed [ 1 ]
+
+    AttackDamage
+    [ 2 - 4 ]'
+  icon: {fileID: 0}
+  prefab: {fileID: 0}
+  type: 1
+  quality: 0
+  attackRange: 2
+  attackSpeed: 1
+  damage: {x: 2, y: 4}

@@ -45,7 +45,14 @@ public class LevelGenerator : MonoBehaviour
     public Vector2 cellSize = new Vector2(3f, 3f);
 
 
+    [Header("Tree")]
+    [Range(0f, 100f)]
+    public float treeDensity = 20f;
+    public GameObject[] trees;
+
+
     [Header("Details")]
+    [Range(0f, 100f)]
     public float detailDensity = 20f;
     public GameObject[] details;
 
@@ -126,6 +133,8 @@ public class LevelGenerator : MonoBehaviour
         }
 
         // Generate all models
+
+        // -------------------- Tiles ---------------------
         for (int y = 0; y < size.y; y++)
         {
             for (int x = 0; x < size.x; x++)
@@ -150,6 +159,45 @@ public class LevelGenerator : MonoBehaviour
                 {
                     go = GameObject.Instantiate(floor, position, Quaternion.identity);
                     go.name = "tileFloor (" + x + "," + y + ")";
+
+
+                    float rng = Random.Range(0, 1f);
+                    float density;
+                    density = detailDensity / 100f;
+                    if (rng < density)
+                    {
+                        //GameObject
+                        density *= 10f;
+                        for (int i = 0; i < Mathf.FloorToInt(density); i++)
+                        {
+                            GameObject dprefab = GetRandomDetails();
+                            if(dprefab != null)
+                            {
+                                Vector3 dposition = new Vector3(Random.Range(-3f, 3f), 0f, Random.Range(-3f, 3f));
+                                GameObject tmpgo = GameObject.Instantiate<GameObject>(dprefab, position +  dposition, Quaternion.identity);
+                                tmpgo.transform.parent = parent;
+                            }
+                        }
+                    }
+
+                    /*if (//(x > 0 && x < 3 && y < size.y && y > size.y - 3)||
+                        ((x > 0 && x < 3) || (y < size.y && y > size.y - 3)))
+                        //((x > 0 && x < 3) || (y < 3 && y > 0)))// || (x < size.x - 3 && x) )
+                    {*/
+                        rng = Random.Range(0, 100f);
+                        density = treeDensity;
+                        if (rng < density)
+                        {
+                            GameObject tprefab = GetRandomTree();
+                            if (tprefab != null)
+                            {
+                                Vector3 tposition = new Vector3(Random.Range(-3f, 3f), 0f, Random.Range(-3f, 3f));
+                                GameObject tmpgo = GameObject.Instantiate<GameObject>(tprefab, position + tposition, Quaternion.identity);
+                                tmpgo.transform.parent = parent;
+                            }
+                        }
+                    //}
+
                 }
                 else
                 {
@@ -160,8 +208,33 @@ public class LevelGenerator : MonoBehaviour
             }
         }
 
+        // ---------------- Details ---------------
+
+
+        // ---------------- Tree ------------------
+
+
+
+
         map.MapGenerated();
     }
+
+    public GameObject GetRandomDetails()
+    {
+        if (details != null && details.Length > 0)
+            return details[Random.Range(0, details.Length)];
+        else
+            return null;
+    }
+
+    public GameObject GetRandomTree()
+    {
+        if(trees != null && trees.Length > 0)
+            return trees[Random.Range(0, trees.Length)];
+        else
+            return null;
+    }
+
 
     public int CountFloorNeighboor(bool[,] map, int x, int y)
     {

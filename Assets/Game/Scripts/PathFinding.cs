@@ -18,8 +18,8 @@ public class PathFinding : MonoBehaviour
     {
         map.onGenerationComplete.AddListener(Initialize);
 
-        Debug.Log("Player position " + ConvertWorldPositionToArray(player.position));
-        Debug.Log("Zombie position " + ConvertWorldPositionToArray(zombie.position));
+        //Debug.Log("Player position " + ConvertWorldPositionToArray(player.position));
+        //Debug.Log("Zombie position " + ConvertWorldPositionToArray(zombie.position));
     }
 
     public Vector2Int ConvertWorldPositionToArray(Vector3 position)
@@ -79,6 +79,17 @@ public class PathFinding : MonoBehaviour
             return dx * diagonale + forward * (dy - dx);*/
     }
 
+    float _timer;
+    public void Update()
+    {
+        _timer += Time.deltaTime;
+        if(_timer > 1f)
+        {
+            DikjtraAlgo();
+            _timer = 0f;
+        }
+    }
+
 
     public Vector2Int[] GetNeighbors(Vector2Int node)
     {
@@ -115,6 +126,9 @@ public class PathFinding : MonoBehaviour
 
     public void DikjtraAlgo()
     {
+        if (player == null)
+            return;
+
         for (int y = 0; y < map.map.GetLength(1); y++)
         {
             for (int x = 0; x < map.map.GetLength(0); x++)
@@ -199,6 +213,46 @@ public class PathFinding : MonoBehaviour
         return path.ToArray();
     }
 
+    public Vector3[] PathToPlayerWithPosition(Vector3 position)
+    {
+        List<Vector3> path = new List<Vector3>();
+
+        Vector2Int indexPlayer = ConvertWorldPositionToArray(player.position);
+        Vector2Int indexEnnemy = ConvertWorldPositionToArray(position);
+
+        Vector2Int size = new Vector2Int(pathFindingMap.map.GetLength(0),
+                                            pathFindingMap.map.GetLength(1));
+
+        int maxloop = 25;
+        int loop = 0;
+
+        path.Add(new Vector3(indexEnnemy.x * 3f, 0f, indexEnnemy.y * 3f));
+
+        if (indexEnnemy.x >= 0 && indexEnnemy.y >= 0 && indexEnnemy.x < size.x && indexEnnemy.y < size.y)
+        {
+            Vector2Int startPosition = indexEnnemy;
+            while (startPosition != indexPlayer && loop < maxloop)
+            {
+
+                Vector2Int newPosition = startPosition + GetCheapestNeighborsDirection(startPosition);
+
+                path.Add(new Vector3(newPosition.x * 3f, 0f, newPosition.y * 3f));
+
+                startPosition = newPosition;
+                if (pathFindingMap.map[startPosition.x, startPosition.y] == int.MaxValue)
+                {
+                    break;
+
+                }
+                loop++;
+            }
+        }
+        
+
+        return path.ToArray();
+    }
+
+
     public Vector2Int GetCheapestNeighborsDirection(Vector2Int node)
     {
         //Deplacements possibles
@@ -263,12 +317,6 @@ public class PathFinding : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
     {
         
     }
