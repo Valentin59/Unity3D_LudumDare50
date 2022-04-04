@@ -252,6 +252,7 @@ public class EnnemyBehaviour : CharacterBehaviour
     public override void OnDestroy()
     {
         base.OnDestroy();
+        //factionCharacters.Remove(this);
         /*if(player != null)
         {
             player.GetANewPath();

@@ -20,18 +20,25 @@ public class LoadSceneWinLose : MonoBehaviour
 
     public void LoadLoseScene()
     {
+        player.onDieCallback.RemoveListener(LoadLoseScene);
+        ennemiesInMap.onEmptySetCallback.RemoveListener(LoadWinScene);
+        //Debug.Log("Load lose Level " + loseSceneName);
         SceneManager.LoadScene(loseSceneName);
     }
 
     public void LoadWinScene()
     {
+        player.onDieCallback.RemoveListener(LoadLoseScene);
+        ennemiesInMap.onEmptySetCallback.RemoveListener(LoadWinScene);
+        //Debug.Log("Load win Level " + winSceneName);
+
         SceneManager.LoadScene(winSceneName);
     }
 
     // Update is called once per frame
     void OnDestroy()
     {
-        player.onDieCallback.RemoveListener(LoadLoseScene);
-        ennemiesInMap.onEmptySetCallback.RemoveListener(LoadWinScene);
+        //player.onDieCallback.RemoveListener(LoadLoseScene);
+        //ennemiesInMap.onEmptySetCallback.RemoveListener(LoadWinScene);
     }
 }

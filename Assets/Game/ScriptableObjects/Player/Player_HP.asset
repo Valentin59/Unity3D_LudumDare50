@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc8552c78731fee40a5b7d45e56f20e2, type: 3}
   m_Name: Player_HP
   m_EditorClassIdentifier: 
-  value: 12
+  value: 50
   onChangeValue:
     m_PersistentCalls:
       m_Calls: []

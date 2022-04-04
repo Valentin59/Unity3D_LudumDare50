@@ -121,8 +121,16 @@ public class PlayerNewTest : CharacterBehaviour
                     currentState = STATE.ATTACK;
                     //StartCoroutine(Attack());
                     _timer = 0f;
-                    
+
                 }
+                else
+                {
+                    if (ppath.Count == 0)
+                    {
+                        ppath.Add(targetposition);
+                    }
+                }
+
             }
             else
             {
