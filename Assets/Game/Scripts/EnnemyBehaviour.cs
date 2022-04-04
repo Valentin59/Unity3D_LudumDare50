@@ -7,6 +7,8 @@ public class EnnemyBehaviour : CharacterBehaviour
     public CharacterBehaviour player;
     public CharacterBehaviour targetEnnemy;
 
+    public AudioSource attackSound;
+
     void Start()
     {
         health.onDieCallback.AddListener(AddXp);
@@ -120,6 +122,14 @@ public class EnnemyBehaviour : CharacterBehaviour
                     {
                         targetEnnemy.health.Damage(character.Damage());
                         _timer = 0f;
+                        if(attackSound != null)
+                        {
+                            if(attackSound.isPlaying)
+                            {
+                                attackSound.Stop();
+                            }
+                            attackSound.Play();
+                        }
                     }
                 }
             }

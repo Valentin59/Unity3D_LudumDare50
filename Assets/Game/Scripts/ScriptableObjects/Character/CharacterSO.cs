@@ -35,22 +35,26 @@ public class CharacterSO : ScriptableObject
 
     public int MaxHealth()
     {
-        int a = stats.health;
+        int a = stats.health.Value;
         if (head != null)
             if(head.stats != null)
-                a += head.stats.Stats().health;
+                if(head.stats.Stats().health != null)
+                    a += head.stats.Stats().health.Value;
 
         if (body != null)
             if (body.stats != null)
-                a += body.stats.Stats().health;
+                if (head.stats.Stats().health != null)
+                    a += body.stats.Stats().health.Value;
 
         if (hand != null)
             if (hand.stats != null)
-                a += hand.stats.Stats().health;
+                if (head.stats.Stats().health != null)
+                    a += hand.stats.Stats().health.Value;
 
         if (shoulder != null)
             if (shoulder.stats != null)
-                a += shoulder.stats.Stats().health;
+                if (head.stats.Stats().health != null)
+                    a += shoulder.stats.Stats().health.Value;
 
         return a;
     }

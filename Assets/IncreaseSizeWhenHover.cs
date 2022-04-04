@@ -10,6 +10,7 @@ public class IncreaseSizeWhenHover : MonoBehaviour, IPointerEnterHandler, IPoint
     public float sizeMax = 1.3f;
     public RectTransform rect;
     public Text uiText;
+    public Image uiImage;
 
     public UnityEvent onClickCallback;
 
@@ -20,6 +21,22 @@ public class IncreaseSizeWhenHover : MonoBehaviour, IPointerEnterHandler, IPoint
         rect = gameObject.GetComponent<RectTransform>();
         uiText = gameObject.GetComponentInChildren<Text>();
     }
+
+    public void SetCard(CardAbility card)
+    {
+        if(card.icon == null)
+        {
+            uiImage.gameObject.SetActive(false);
+        }
+        else
+        {
+            uiImage.sprite = card.icon;
+        }
+
+        uiText.text = card.description;
+        onClickCallback.AddListener(card.action);
+    }
+
 
     public void SetText(string text)
     {

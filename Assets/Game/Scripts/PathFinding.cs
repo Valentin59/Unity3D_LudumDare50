@@ -7,7 +7,7 @@ using UnityEditor;
 public class PathFinding : MonoBehaviour
 {
     public Transform player;
-    public Transform zombie;
+    //public Transform zombie;
 
     public Map map;
     public PFMap pathFindingMap;
@@ -18,6 +18,7 @@ public class PathFinding : MonoBehaviour
     {
         map.onGenerationComplete.AddListener(Initialize);
 
+        
         //Debug.Log("Player position " + ConvertWorldPositionToArray(player.position));
         //Debug.Log("Zombie position " + ConvertWorldPositionToArray(zombie.position));
     }

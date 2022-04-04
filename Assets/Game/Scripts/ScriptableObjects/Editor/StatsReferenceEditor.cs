@@ -16,7 +16,7 @@ public class StatsReferenceEditor : Editor
         ts.stats.Stats().strength.Value = EditorGUILayout.IntField("strength", ts.stats.Stats().strength.Value);
         ts.stats.Stats().healthRegeneration.Value = EditorGUILayout.IntField("healthRegeneration", ts.stats.Stats().healthRegeneration);
         ts.stats.Stats().manaRegeneration.Value = EditorGUILayout.IntField("manaRegeneration", ts.stats.Stats().manaRegeneration.Value);
-        ts.stats.Stats().attackSpeed.Value = EditorGUILayout.IntField("attackSpeed", ts.stats.Stats().attackSpeed.Value);
+        ts.stats.Stats().attackSpeed.Value = EditorGUILayout.FloatField("attackSpeed", ts.stats.Stats().attackSpeed.Value);
 
         // Show default inspector property editor
     }

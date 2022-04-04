@@ -1,5 +1,5 @@
 ﻿using System;
-
+using UnityEngine.Events;
 
 [Serializable]
 public class IntReference : IComparable<IntReference>
@@ -7,6 +7,8 @@ public class IntReference : IComparable<IntReference>
     public bool UseConstant = true;
     public int ConstantValue;
     public IntVariable Variable;
+
+    public UnityEvent onValueChanged;
 
     public IntReference()
     { }
@@ -20,8 +22,14 @@ public class IntReference : IComparable<IntReference>
     public int Value
     {
         get { return UseConstant ? ConstantValue : Variable.value; }
-        set { if (UseConstant) ConstantValue = value; else Variable.value = value; }
+        set {
+            if (UseConstant) ConstantValue = value; else Variable.value = value; 
+            if(onValueChanged != null)
+                onValueChanged.Invoke();
+        }
     }
+
+
 
     public int CompareTo(IntReference other)
     {

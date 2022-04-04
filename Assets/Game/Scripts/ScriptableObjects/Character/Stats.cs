@@ -13,5 +13,5 @@ public class Stats : ScriptableObject
     public IntReference strength;
     public IntReference healthRegeneration; // health heal per 5/10 sec ?
     public IntReference manaRegeneration;
-    public IntReference attackSpeed;
+    public FloatReference attackSpeed;
 }

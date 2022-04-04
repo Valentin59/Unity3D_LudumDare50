@@ -1,9 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerNewTest : CharacterBehaviour
 {
+    public IntReference     mana;
+    public IntReference     circularAttackCost;
+    public IntReference     circularDamage;
+    public FloatReference   circularRange;
+    public LayerMask        ennemyMask;
+
+    public AudioSource audioSimpleAttack;
+    public AudioSource audioCircularAttack;
+
     public enum STATE
     {
         IDLE,
@@ -23,6 +33,8 @@ public class PlayerNewTest : CharacterBehaviour
     void Start()
     {
         currentState = STATE.IDLE;
+        mana.Variable.ChangeValue( character.stats.mana.Value );
+        StartCoroutine(ManaRegenarationUpdate());
     }
 
     float _timer = 0f;
@@ -109,6 +121,7 @@ public class PlayerNewTest : CharacterBehaviour
                     currentState = STATE.ATTACK;
                     //StartCoroutine(Attack());
                     _timer = 0f;
+                    
                 }
             }
             else
@@ -152,6 +165,12 @@ public class PlayerNewTest : CharacterBehaviour
                 //DamageDeal?.Invoke(character.Damage());
                 target.health.Damage(character.Damage());
                 _timer = 0f;
+                if (audioSimpleAttack != null)
+                {
+                    if (audioSimpleAttack.isPlaying)
+                        audioSimpleAttack.Stop();
+                    audioSimpleAttack.Play();
+                }
             }
 
             
@@ -183,7 +202,58 @@ public class PlayerNewTest : CharacterBehaviour
                 }
             }
         }
+        /*else if(currentState == STATE.CIRCULARATTACK)
+        {
+
+        }*/
     }
+
+
+
+    public void TourbiLol()
+    {
+        if (mana.Value >= circularAttackCost)
+        {
+            if (_animator != null)
+            {
+                _animator.SetTrigger("attackCircular");
+            }
+
+            //mana.Value -= circularAttackCost;
+            mana.Variable.ApplyChange(-circularAttackCost);
+            //Debug.Log(mana.Value);
+
+            RaycastHit[] objects = Physics.SphereCastAll(transform.position, circularRange, Vector3.down, ennemyMask);
+            foreach (var o in objects)
+            {
+                Health h = o.collider.GetComponent<Health>();
+                if(h != null)
+                {
+                    h.Damage(circularDamage.Value);
+                }
+            }
+            if (audioCircularAttack != null)
+            {
+                if (audioCircularAttack.isPlaying)
+                    audioCircularAttack.Stop();
+                audioCircularAttack.Play();
+            }
+        }
+    }
+
+    public IEnumerator ManaRegenarationUpdate()
+    {
+        while(true)
+        {
+            yield return new WaitForSeconds(5f);
+            if (!pause)
+            {
+                //Debug.Log(Mathf.Clamp(mana.Value + character.stats.manaRegeneration.Value, 0, character.stats.mana.Value));
+                mana.Variable.ChangeValue( Mathf.Clamp(mana.Value + character.stats.manaRegeneration.Value, 0, character.stats.mana.Value));
+            }
+        }
+    }
+
 
     #region PathFinding Function
     public void SetNewTarget(CharacterBehaviour target)

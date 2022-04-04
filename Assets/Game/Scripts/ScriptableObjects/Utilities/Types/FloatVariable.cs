@@ -26,4 +26,9 @@ public class FloatVariable : ScriptableObject
         this.value -= amount;
     }
 
+
+    public float CompareTo(FloatVariable other)
+    {
+        return value.CompareTo(other.value);
+    }
 }

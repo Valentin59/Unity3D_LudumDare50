@@ -29,7 +29,7 @@ public class TextDamage : MonoBehaviour
         }
         ui.color = color;
         ui.text = "";
-        Debug.Log(text);
+        //Debug.Log(text);
         ui.text = text;
         rect.anchoredPosition = position;
     }

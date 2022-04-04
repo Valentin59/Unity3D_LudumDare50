@@ -12,10 +12,49 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 678632ae5bf403b4ea11fbe27e3c9b67, type: 3}
   m_Name: BigSpiderStats
   m_EditorClassIdentifier: 
-  health: 24
-  mana: 0
-  agility: 0
-  strength: 0
-  healthRegeneration: 0
-  manaRegeneration: 0
-  attackSpeed: 0
+  health:
+    UseConstant: 1
+    ConstantValue: 40
+    Variable: {fileID: 0}
+    onValueChanged:
+      m_PersistentCalls:
+        m_Calls: []
+  mana:
+    UseConstant: 1
+    ConstantValue: 0
+    Variable: {fileID: 0}
+    onValueChanged:
+      m_PersistentCalls:
+        m_Calls: []
+  agility:
+    UseConstant: 1
+    ConstantValue: 0
+    Variable: {fileID: 0}
+    onValueChanged:
+      m_PersistentCalls:
+        m_Calls: []
+  strength:
+    UseConstant: 1
+    ConstantValue: 0
+    Variable: {fileID: 0}
+    onValueChanged:
+      m_PersistentCalls:
+        m_Calls: []
+  healthRegeneration:
+    UseConstant: 1
+    ConstantValue: 0
+    Variable: {fileID: 0}
+    onValueChanged:
+      m_PersistentCalls:
+        m_Calls: []
+  manaRegeneration:
+    UseConstant: 1
+    ConstantValue: 0
+    Variable: {fileID: 0}
+    onValueChanged:
+      m_PersistentCalls:
+        m_Calls: []
+  attackSpeed:
+    UseConstant: 1
+    ConstantValue: 0
+    Variable: {fileID: 0}

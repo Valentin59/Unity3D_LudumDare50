@@ -5,6 +5,8 @@ using UnityEngine.Events;
 
 public class CharacterBehaviour : MonoBehaviour
 {
+    public GameController gameManager;
+
     public CharacterSO character;
     public PathFinding pfController;
     
@@ -35,7 +37,20 @@ public class CharacterBehaviour : MonoBehaviour
         _animator = gameObject.GetComponentInChildren<Animator>();
         health = gameObject.GetComponent<Health>();
         factionCharacters.Add(this);
+        gameManager.onPauseEvent.AddListener(Pause);
+        gameManager.onResumeEvent.AddListener(Resume);
     }
+
+    public void Pause()
+    {
+        pause = true;
+    }
+
+    public void Resume()
+    {
+        pause = false;
+    }
+
 
 
     public virtual void Movement()
@@ -93,6 +108,8 @@ public class CharacterBehaviour : MonoBehaviour
     public virtual void OnDestroy()
     {
         factionCharacters.Remove(this);
+        gameManager.onPauseEvent.RemoveListener(Pause);
+        gameManager.onResumeEvent.RemoveListener(Resume);
     }
 
 

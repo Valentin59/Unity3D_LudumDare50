@@ -9,17 +9,28 @@ public class Health : MonoBehaviour
 
     public IntReference currentHp;
 
+    public bool isPlayer;
+
     //public int currentHp;
 
     public UnityEvent onDieCallback;
     public UnityEvent<int, Vector3> onDamageTaken;
 
+    public GameObject deadSound;
+
     void Awake()
     {
-        if(currentHp.UseConstant)
-            currentHp.ConstantValue = character.MaxHealth();
+        /*if(!isPlayer)
+        {*/
+            if(currentHp.UseConstant)
+                currentHp.ConstantValue = character.MaxHealth();
+            else
+                currentHp.Variable.value = character.MaxHealth();
+        /*}
         else
-            currentHp.Variable.value = character.MaxHealth();
+        {
+            //currentHp.Value = character.MaxHealth();
+        }*/
 
 
         /*if(currentHp == 0)
@@ -50,6 +61,11 @@ public class Health : MonoBehaviour
 
 
             onDieCallback?.Invoke();
+
+            if(deadSound != null)
+            {
+                Instantiate<GameObject>(deadSound, transform.position, Quaternion.identity);
+            }
 
             //dead
             if (this.gameObject.CompareTag("Player"))
