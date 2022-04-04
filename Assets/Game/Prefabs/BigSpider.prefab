@@ -256,7 +256,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74ec450e7de6c2649ab85a116a03c2f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  character: {fileID: 11400000, guid: f7689e51cfcd3464d9441ad65c251a18, type: 2}
+  character: {fileID: 11400000, guid: 79f31979f2d60724e8914cd2c98ca70f, type: 2}
   currentHp:
     UseConstant: 1
     ConstantValue: 0

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8510965f1858a984d88dd9757b62eea9, type: 3}
   m_Name: Player_RangeAttackCircular
   m_EditorClassIdentifier: 
-  value: 5
+  value: 4
   onChangeValue:
     m_PersistentCalls:
       m_Calls: []
